@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Xiphos</name>
+    </assembly>
+    <members>
+        <member name="T:Xiphos.ECS2.IHasPart`1">
+            <summary>
+            An interface to provide methods for manipulating a part of an entity
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:Xiphos.ECS2.Ref`1">
+            <summary>
+            An unsafe reference to something
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:Xiphos.ECS2.Ref`1.Value">
+            <summary>
+            The referenced value
+            </summary>
+        </member>
+        <member name="M:Xiphos.ECS.ComponentPack.IncrementEntity">
+            <summary>
+            Increments the current entity being processed across all contained archetypes.
+            </summary>
+            <returns>False if incrementing rolled over to the very first entity.</returns>
+        </member>
+        <member name="M:Xiphos.ECS.SystemGraph.OrderSystemExecution">
+            <summary>
+            Ensures that system dependencies are properly ordered, and sets up the system graph to be able to execute.
+            Checks:
+            -If graph is already successfully ordered (early escape)
+            -If graph is running, but not ordered (early error)
+            -If the system graph contains no circular dependencies
+            -If all write-access systems have a deterministic order between them, and all read-only systems have a deterministic order to all write-access systems
+            </summary>
+            <returns>In a single-threaded context (this function is only called from one thread), returns true if the system is correctly ordered. 
+            In a multi-threaded context, returns true if the system is correctly ordered, or if this call ordered it. Returns false in the case that the graph is not orderable due to dependency errors, or if the graph is currently being ordered on another thread.</returns>
+        </member>
+        <member name="M:Xiphos.ECS.SystemGraph.Start">
+            <summary>
+            If the system graph is ordered correctly and not already executing, will start execution and return an task that will complete when all systems in the graph are complete.
+            This method is thread-safe.
+            </summary>
+            <returns>A task that completes when all systems in the graph are complete.</returns>
+        </member>
+        <member name="M:Xiphos.ECS.SystemGraph.AddSystemGraph``1(``0@)">
+            <summary>
+            Collects all systems directly or indirectly connected to the given system via dependencies, and adds them all to the system graph.
+            </summary>
+            <typeparam name="T">The concrete type of the system.</typeparam>
+            <param name="system">The system to get connected systems of.</param>
+        </member>
+        <member name="M:Xiphos.ECS.SystemGraph.DistributeArchetype(Xiphos.ECS.Archetype@)">
+            <summary>
+            Distributes given archetype to every system's component pack
+            </summary>
+            <param name="archetype">Archetype to distribute to system component packs</param>
+        </member>
+        <member name="T:Xiphos.Utilities.ByteConversionExtensions">
+            <summary>
+            Contains utility extensions for converting byte arrays into data types
+            </summary>
+        </member>
+        <member name="M:Xiphos.Utilities.ByteConversionExtensions.Cast``1(System.ReadOnlyMemory{System.Byte})">
+            <summary>
+            Reinterpret a slice of bytes to any type
+            </summary>
+            <typeparam name="T">Type to reinterpret bytes to</typeparam>
+            <param name="bytes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Xiphos.Utilities.ByteConversionExtensions.Cast``1(System.Memory{System.Byte})">
+            <summary>
+            Reinterpret a slice of bytes to any type
+            </summary>
+            <typeparam name="T">Type to reinterpret bytes to</typeparam>
+            <param name="bytes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Xiphos.Utilities.ByteConversionExtensions.Cast``1(System.ReadOnlySpan{System.Byte})">
+            <summary>
+            Reinterpret a slice of bytes to any type
+            </summary>
+            <typeparam name="T">Type to reinterpret bytes to</typeparam>
+            <param name="bytes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Xiphos.Utilities.ByteConversionExtensions.Cast``1(System.Span{System.Byte})">
+            <summary>
+            Reinterpret a slice of bytes to any type
+            </summary>
+            <typeparam name="T">Type to reinterpret bytes to</typeparam>
+            <param name="bytes"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
